@@ -16,7 +16,6 @@ const Hero = () => {
   className="bg-white bg-opacity-80 dark:bg-slate-900 dark:bg-opacity-80 md:pt-[150px] pt-24 md:pb-52 pb-20 flex flex-col justify-center items-center space-y-12"
 >
   <div className="container px-7 md:px-12 relative">
-  <img className=' absolute -top-20 right-20  invert dark:invert-0 opacity-75 sm:block hidden w-[200px]' src="https://www.blocknotejs.org/_next/static/media/try.dark.a200a1ff.svg" alt="svg" />
    
     <img
       className="sm:block hidden absolute right-3 bottom-5 w-[80px] opacity-80 invert dark:invert-0"

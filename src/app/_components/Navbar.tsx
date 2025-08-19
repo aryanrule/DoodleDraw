@@ -15,7 +15,7 @@ const Navbar = () => {
         <div className="flex h-16 items-center justify-between">
           <div className="flex-1 md:flex md:items-center md:gap-12">
             <Link className="block text-black dark:text-white" href="#">
-              <h1 className="text-[25px] font-[600] ">Draw</h1>
+              <h1 className="text-[25px] font-[600] ">Doodle Draw</h1>
             </Link>
           </div>
 

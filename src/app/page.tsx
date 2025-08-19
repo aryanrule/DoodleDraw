@@ -4,6 +4,9 @@ import Link from "next/link";
 import { ArrowLeftIcon, GitHubLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
 import Navbar from "./_components/Navbar";
 import Hero from "./_components/Hero";
+
+
+
 export default function Home() {
   return (
   <div className="bg-gray-900">
