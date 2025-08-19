@@ -21,7 +21,7 @@ const userSchema = new Schema({
         enum : ['premium' , 'free'] , 
         require:true , 
      } , 
-     projects:[{
+     project:[{
         fileId: {
             type : Schema.Types.ObjectId 
         } , 
