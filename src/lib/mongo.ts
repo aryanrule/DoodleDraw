@@ -1,7 +1,7 @@
 "use server"
 import mongoose, { Mongoose } from "mongoose"
 
-const db_url = process.env.MONGO_URL!;
+const db_url = process.env.MONGODB_URL!;
 
 interface MongoConnection {
     connection : Mongoose | null
@@ -20,6 +20,7 @@ const connect_DB =  async () => {
     }
 
     try{  
+        console.log("db url" , db_url);
         cached.connection = await mongoose.connect(db_url , {bufferCommands: false}) 
     }catch(error){
         console.error('Error connecting to MongoDB:', error);
