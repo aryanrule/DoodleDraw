@@ -24,19 +24,17 @@ export async function GET(request: NextRequest, response: NextResponse) {
     console.log("kindUser", kindUser);
 
     await connect_DB();
-    const userDetails = await User.findOne({ email: kindUser.email }).populate(
-      "project"
-    );
+    const userDetails = await User.findOne({ email: kindUser.email }).populate("project");
     console.log("userDetails", userDetails);
     if (userDetails) {
       return NextResponse.json({
         status: 200,
-        userDetails: userDetails,
+        userDetails: userDetails , 
         message: "here is the complete user details",
       });
     } else {
       const newUser = await User.create({
-        username: kindUser.username,
+        username: kindUser.given_name,
         email: kindUser.email,
         kindeId: kindUser.id,
         picture: kindUser.picture,
@@ -89,18 +87,18 @@ export async function POST(request: NextRequest, response: NextResponse) {
 }
 
 
-//finduser
-export const findUser = async (KindeId:string)=>{
-  try {
-    if (!KindeId){
-        throw new Error('_id is not provided');
-        return
-    }
-    await connect_DB();
-    const Getuser = await User.findOne({KindeId: KindeId});
-    return Getuser
+// //finduser
+// export const findUser = async (KindeId:string)=>{
+//   try {
+//     if (!KindeId){
+//         throw new Error('_id is not provided');
+//         return
+//     }
+//     await connect_DB();
+//     const Getuser = await User.findOne({KindeId: KindeId});
+//     return Getuser
 
-  } catch (error) {
-    console.log(error);
-  }
-}
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }

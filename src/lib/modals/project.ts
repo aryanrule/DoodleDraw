@@ -3,7 +3,7 @@ import { models } from "mongoose";
 
 
 const projectSchema = new Schema({
-    fileName : {
+    filename : {
         type : String , 
         required:true  , 
     } , 

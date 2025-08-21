@@ -1,16 +1,21 @@
 import { create } from 'zustand'
 
-type state = {
+type State = {
     user : any , 
-    project : any  
+    project : any  , 
+    updateUser : (user : any ) => void , 
+    updateProject : (project : any) => void ,   
+
 }
 
-export const usePersonalStore = create<state>()((set:any) => ({
-    user : null ,   // initial
-    project : null , 
-    updateUser : (user : any) => set((state : any) => ({user : state.user})) , 
-    updateProject : (user : any) => set((state: any) => ({project : state.project}))  
-}))
+
+export const usePersonalStore = create<State>((set) => ({
+  user: null,
+  project: null,
+  updateUser: (user) => set(() => ({ user })),
+  updateProject: (project) => set(() => ({ project })),
+}));
+
 
 
 
