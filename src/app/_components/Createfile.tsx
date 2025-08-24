@@ -1,5 +1,5 @@
-'use client'
-import React from 'react'
+"use client";
+import React, { useEffect } from "react";
 
 import {
   Dialog,
@@ -11,26 +11,55 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { useState } from 'react';
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { useState } from "react";
+import { toast } from "sonner";
+import { useRouter } from 'next/navigation'
+import Api_Connector from "@/config/api_connector/api_connectot";
+import { API_ENDPOINTS } from "@/config/api";
+import { usePersonalStore } from "@/store/store";
 
-
-
-const Createfile = ({userinfo}:{userinfo : any}) => {
+const Createfile = ({ userinfo }: { userinfo: any }) => {
+  const updatedUser = usePersonalStore((state : any)=> state.updateUser);
+  const updatedProject = usePersonalStore((state : any ) => state.updateProject);
   
-  
-  const [open , setOpen] = useState(false);
-  const [filename , setfilename] = useState("");
+  const [open, setOpen] = useState(false);
+  const [filename, setfilename] = useState("");
+  const router = useRouter();
 
-  const createProject = () => {
+  useEffect(() => {
+    console.log("userinfo", userinfo);
+  });
 
-  }
+  const createProject = async () => {
+    try {
+      //validation
+      if (userinfo?.project.length >= 5 && userinfo?.plan === "free") {
+        toast("Maximum File Creation Limit Reached", {
+          description: "upgrade you plan to premium",
+          action: {
+            label: "Upgrade",
+            onClick: () => router.push("/dashboard/plans"),
+          },
+        });
+      }
+      const createUsersProject : any = await Api_Connector("POST" , API_ENDPOINTS.project.createProject , {userId : userinfo?._id , fileName : filename }  , "" , "");
+      console.log("createUserProject" , createUsersProject);
+      updatedUser(createUsersProject?.data?.updatedUser);
+      updatedProject(createUsersProject?.data?.updatedUser?.project);
+      toast('Project created successfully')
+      
+    } catch (error) {
+      console.log(error);
+      toast("Problem while creating project");
+    }
+  };
 
   return (
-   <>
-      <Dialog open={open} onOpenChange={setOpen} >
+    <>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button className="gap-2">
             <Plus className=" h-4 w-4" />
@@ -58,14 +87,19 @@ const Createfile = ({userinfo}:{userinfo : any}) => {
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit" >
+            <Button
+              type="submit"
+              onClick={() => {
+                createProject().then(() => setOpen(false));
+              }}
+            >
               Create
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
     </>
-  )
-}
+  );
+};
 
-export default Createfile
+export default Createfile;

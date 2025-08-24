@@ -6,5 +6,8 @@ export const API_ENDPOINTS = {
         createUser : `${API_BASE}/api/user` , 
         findUser : `${API_BASE}/api/user` , 
     }, 
-    
+    project : {
+        createProject : `${API_BASE}/api/project` , 
+          
+    }
 }
