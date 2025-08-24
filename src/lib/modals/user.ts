@@ -28,7 +28,7 @@ const userSchema = new Schema({
         fileName : {
             type : String ,  
         } , 
-        userName : {
+        username : {
             type : String , 
         }  , 
         createdAt : {
@@ -37,7 +37,6 @@ const userSchema = new Schema({
         }
      }]
 });
-
 
 const User = models?.user || mongoose.model("user" , userSchema);
 export default User ;
