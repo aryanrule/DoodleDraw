@@ -128,7 +128,9 @@ const Sidebaar = () => {
               <span className="text-sm font-medium"> Plans </span>
             </Link>
           </li>
-           <Logout/>
+           <li>
+                <Logout/>
+           </li>
         </ul>
       </div>
 

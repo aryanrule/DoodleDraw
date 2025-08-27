@@ -4,6 +4,7 @@ import connect_DB from "@/lib/mongo";
 import { NextRequest, NextResponse } from "next/server";
 import User from "@/lib/modals/user";
 import File from "@/lib/modals/project";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 // create a project
 export async function POST(request: NextRequest) {
@@ -34,8 +35,8 @@ export async function POST(request: NextRequest) {
         { status: 403 }
       );
     }
-    console.log("checkuserPresent" , checkUserPresent);
-    console.log("checkuserPresntusername" , checkUserPresent.username);
+    console.log("checkuserPresent", checkUserPresent);
+    console.log("checkuserPresntusername", checkUserPresent.username);
     // create the project
     const createProject = await File.create({
       filename: fileName,
@@ -58,7 +59,7 @@ export async function POST(request: NextRequest) {
       },
       { new: true }
     );
-    console.log("updatedUser" , updatedUser);
+    console.log("updatedUser", updatedUser);
     if (!updatedUser) {
       return NextResponse.json(
         { message: "Failed to update user with project ID", success: false },
@@ -71,7 +72,7 @@ export async function POST(request: NextRequest) {
         message: "Project created successfully",
         success: true,
         // userProjects: updatedUser.project, // safer response
-        updatedUser : updatedUser , 
+        updatedUser: updatedUser,
       },
       { status: 201 }
     );
@@ -83,5 +84,38 @@ export async function POST(request: NextRequest) {
   }
 }
 
+export async function GET(request: NextRequest, response: NextResponse) {
+  try {
+      // we can validate the user but i am not validating 
+      const {searchParams} = new URL(request.url);
+      const projectId  = searchParams.get("projectId");
+      if(!projectId){
+        return NextResponse.json(
+        { message: "ProjectId is missing" },
+        { status: 400 }
+        );
+      }
+      await connect_DB();
+      const findProject = await File.findById(projectId);
+      if(!findProject){
+        return NextResponse.json(
+        { message: "No Project is here with this projectId", success: false },
+        { status: 409 }
+      )};
 
 
+      return NextResponse.json(
+      {
+        message: "here is Your Project",
+        success: true,
+        file: findProject,
+      },
+      { status: 201 }
+    );
+  } catch (error : any) {
+    return NextResponse.json(
+      { message: "Server error", error: error.message },
+      { status: 500 }
+    );
+  }
+}
