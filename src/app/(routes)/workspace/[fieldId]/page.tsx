@@ -14,25 +14,36 @@ import { useParams } from 'next/navigation';
 const page = () => {
   const params : any = useParams();
   // const [DBwhiteboardfile, DBwhiteboardfile] = useState(null);
-  // const [DBDocumefile , setDbDocumentfile] = useState(null);
-  // const [whiteBoardFile , setWhiteboardfile] = useState(null); 
-  // const [documentFile , setDocumentFile] = useState(null);
-   
-
+  const [DBDocumentfile , setDbDocumentfile] = useState(null);
+  const [whiteBoardFile , setWhiteboardfile] = useState(null); 
+  const [documentFile , setDocumentFile] = useState(null);
+  const [DbFiles , setDbFiles] = useState(null);
+  
   function saveFiles(){
     
   }
   
   async function getFiles(){
     try{
-      // const getFile = await Api_Connector( "GET" , API_ENDPOINTS.project.getProject , {projectId : params})
+
+      console.log("apiurl" ,`${API_ENDPOINTS.project.getProject}/projectId=${params.fieldId}`)
+      const getProjectFile = await Api_Connector("GET" , `${API_ENDPOINTS.project.getProject}/?projectId=${params.fieldId}` , "" , "" , "");
+      console.log("getYpurProject" , getProjectFile);
+      setDbFiles(getProjectFile.data.file);
+      if(getProjectFile.data.file.whiteboard.length == 0 ||  getProjectFile.data.file.whiteboard.length == 0) return;
+
+      // setDbDocumentfile();
+
     }catch(error){
       console.log('error while hitting the api');
     }
   } 
+
   useEffect(() => {
     console.log(params);
+    getFiles();
   } , []);
+  
 
   return (
      <div className="h-screen ">
@@ -52,17 +63,17 @@ const page = () => {
       <ResizablePanelGroup direction="horizontal" className="">
         <ResizablePanel>
           <DocumentBlock
-            // savefile={saveFile}
-            // defaultBlock={DBdocumentfile}
-            // setDocumentfile={setDocumentfile}
+            // saveFiles={saveFiles}
+            // defaultBlock={DBDocumentfile}
+            // setDocumentfile={setDbDocumentfile}
           />
         </ResizablePanel>
         <ResizableHandle withHandle className="bg-gray-500 dark:bg-gray-300"/>
         <ResizablePanel>
-          <WhiteBoard
+          {/* <WhiteBoard
             // defaultBlock={DBwhiteboardfile}
             // setWhiteboardfile={setWhiteboardfile}
-          />
+          /> */}
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>
