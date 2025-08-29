@@ -1,4 +1,4 @@
-import Sidebaar from "@/app/_components/Sidebaar";
+import Sidebaar from "@/_components/Sidebaar";
 
 interface DashBoardProps{
     children : React.ReactNode;

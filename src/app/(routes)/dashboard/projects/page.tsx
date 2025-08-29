@@ -1,15 +1,18 @@
 "use client";
 import React, { useEffect } from "react";
-import SearchInput from "@/app/_components/SearchInput";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { usePersonalStore } from "@/store/store";
-import Createfile from "@/app/_components/Createfile";
+import Createfile from "@/_components/Createfile";
 import Link from 'next/link'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuShortcut, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { MoreVertical, Trash } from "lucide-react";
-import CostumAlertDialog from '../../../_components/AlertDialog';
+import SearchInput from "@/_components/SearchInput";
+import CostumAlertDialog from '../../../../_components/AlertDialog';
+
 
 const page = () => {
+
+  
   const userinfo = usePersonalStore((state) => state.user);
   const projects = usePersonalStore((state) => state.project);
   useEffect(() => {
