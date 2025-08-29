@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 
 import Link from 'next/link';
 import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs';
+import Logout from './Logout';
 
 
 const Sidebaar = () => {
@@ -68,7 +69,7 @@ const Sidebaar = () => {
         }
       <div className= {`h-[100vh]  w-[300px] p-5 border-r-gray-500 dark:border-r-gray-700 border-r-[1.3px] flex flex-col justify-between bg-white dark:bg-gray-900 ${Sidebaar ? 'block': 'hidden'} `}>
           <div>
-            <div className="flex  w-full justify-between items-center">
+        <div className="flex  w-full justify-between items-center">
           <div className="flex items-center gap-2 m-5 ">
             <h1 className="text-[20px] font-[600] ">Draw</h1>
             <div>
@@ -78,9 +79,8 @@ const Sidebaar = () => {
           {
             <SidebarClose className="text-gray-700 dark:text-gray-200 size-6 cursor-pointer hover:text-gray-900"  onClick={()=>setSidebar(false)} />
           }
-          
-          </div>
-             <ul className="space-y-1">
+        </div>
+        <ul className="space-y-1">
           <li>
             <Link
               href="/dashboard/projects"
@@ -128,10 +128,13 @@ const Sidebaar = () => {
               <span className="text-sm font-medium"> Plans </span>
             </Link>
           </li>
-
-          <LogoutLink>logout</LogoutLink>
+           <li>
+                <Logout/>
+           </li>
         </ul>
       </div>
+
+      
           
       </div>
     </>

@@ -12,4 +12,5 @@ const Api_Connector = (method:string , url:string, bodyData:any , headers:any, p
   })
 }
 
+
 export default Api_Connector;

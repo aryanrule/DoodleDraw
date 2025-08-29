@@ -8,6 +8,7 @@ export const API_ENDPOINTS = {
     }, 
     project : {
         createProject : `${API_BASE}/api/project` , 
-          
+        saveProject : `${API_BASE}/api/project` , 
+        getProject :  `${API_BASE}/api/project`  , 
     }
 }
