@@ -1,5 +1,4 @@
-"use client";
-
+"use client"
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { ArrowLeftCircle, Save, User } from "lucide-react";
@@ -9,17 +8,13 @@ import WhiteBoard from '@/_components/WhiteBoard';
 import Api_Connector from '@/config/api_connector/api_connectot';
 import { API_ENDPOINTS } from '@/config/api';
 import { useParams } from 'next/navigation';
-import dynamic from 'next/dynamic';
-import { useMemo } from 'react';
-
-interface EditorProps {
-  defaultBlock: any;
-  setDocumentfile: (blocks: any) => void;
-}
+import BlockNoteEditor from '@/_components/BlockNoteView';
+import { toast } from 'sonner';
+import { error } from 'console';
 
 const page = () => {
   
-   
+  
   const params : any = useParams();
   const [DBDocumentfile , setDbDocumentfile] = useState(null);
   const [whiteBoardFile , setWhiteboardfile] = useState(null); 
@@ -28,11 +23,26 @@ const page = () => {
   const [DbWhiteBoardFile , setDbWhiteBoardFile] = useState(null);
   // const [saveFiles , setSaveFiles] = useState(null);
   
-  function saveFiles(){
-    
+  async function saveFiles(){
+      // in the backend you need to stringyfy this thing 
+      try{
+        if(!documentFile && !whiteBoardFile){
+          toast("file is empty");
+        }
+        if(DBDocumentfile == documentFile && DbWhiteBoardFile == whiteBoardFile){
+          toast("no changes were made");
+        }
+        if(documentFile !== DBDocumentfile && whiteBoardFile !== DbWhiteBoardFile){
+           const updatedDBfiles = await Api_Connector("PATCH" , API_ENDPOINTS.project.saveProject , {ProjectId : params.fieldId  , whiteboard : whiteBoardFile , document:documentFile } , "" , "");
+           console.log(updatedDBfiles);
+           toast("File Updated Successfully");
+        }
+      }catch(error: any){
+           console.log("error while hitting the save Api"); 
+           throw new Error();        
+      }
   }
-  
-  
+
   async function getFiles(){
     try{
 
@@ -40,26 +50,43 @@ const page = () => {
       const getProjectFile = await Api_Connector("GET" , `${API_ENDPOINTS.project.getProject}/?projectId=${params.fieldId}` , "" , "" , "");
       console.log("getYpurProject" , getProjectFile);
       setDbFiles(getProjectFile.data.file);
-      if(getProjectFile.data.file.whiteboard.length == 0 ||  getProjectFile.data.file.whiteboard.length == 0) return;
-
-      // setDbDocumentfile();
-
+      if(getProjectFile?.data?.file?.document.length == 0 || getProjectFile?.data?.file?.whiteboard.length == 0){
+        return ;
+      }
+      //maybe a stringify logic is leftover 
+      let document  = JSON.parse(getProjectFile?.data?.file?.document);      
+      let whiteboard = JSON.parse(getProjectFile?.data?.file?.whiteboard);
+      console.log("document" ,  document);  
+      console.log("whiteboard",  whiteboard);   
+      setDbDocumentfile(document);
+      setDbWhiteBoardFile(whiteboard);
+      setDocumentFile(document);
+      setWhiteboardfile(whiteboard);
+      
     }catch(error){
       console.log('error while hitting the api');
     }
   } 
 
   useEffect(() => {
-    // console.log(params);
-    getFiles();
-    
+    getFiles(); 
   } , []);
   
   useEffect(() => {
     console.log("whiteBoardFile" , whiteBoardFile);
-  } , [whiteBoardFile]);
+    console.log("documentfile" , documentFile);
+    console.log("dbdocumentFile" , DBDocumentfile);
+    console.log("dbwhiteboardFile"  , DbWhiteBoardFile);  
+  } , [whiteBoardFile, documentFile , DBDocumentfile , DbWhiteBoardFile]);
   
-      
+  if(!DbFiles){
+       return (
+      <div className="w-[100vw] h-[100vh] flex justify-center items-center">
+        <div className="loader"></div>
+      </div>
+    );
+  }      
+
   return (
      <div className="h-screen ">
       <div className="h-14 border-b-[0.5px] bg-white dark:bg-gray-900 border-b-gray-400 z-50 flex justify-between sm:px-8 px-2">
@@ -69,7 +96,7 @@ const page = () => {
           </Link>
           <h2 className="text-[14px] font-[600]">file name</h2>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 cursor-pointer">
           <Button onClick={() => saveFiles()}>
             <Save className="size-5 mr-3" /> Save
           </Button>
@@ -77,7 +104,10 @@ const page = () => {
       </div>
       <ResizablePanelGroup direction="horizontal" className="">
         <ResizablePanel>
-             
+            <BlockNoteEditor
+              defaultBlock = {documentFile}
+              setDocumentFile = {setDocumentFile}     
+            />   
         </ResizablePanel>
         <ResizableHandle withHandle className="bg-gray-500 dark:bg-gray-300"/>
         <ResizablePanel>

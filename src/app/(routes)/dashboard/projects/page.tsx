@@ -12,7 +12,6 @@ import CostumAlertDialog from '../../../../_components/AlertDialog';
 
 const page = () => {
 
-  
   const userinfo = usePersonalStore((state) => state.user);
   const projects = usePersonalStore((state) => state.project);
   useEffect(() => {
@@ -84,6 +83,7 @@ const page = () => {
                       Delete
                     </DropdownMenuItem>
                   </CostumAlertDialog> */}
+                    
                 </DropdownMenuGroup>
               </DropdownMenuContent>
             </DropdownMenu>
