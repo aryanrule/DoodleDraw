@@ -116,6 +116,49 @@ export async function GET(request: NextRequest, response: NextResponse) {
     return NextResponse.json(
       { message: "Server error", error: error.message },
       { status: 500 }
-    );
+    ); 
   }
+} 
+
+//save project
+export async function PATCH(request : NextRequest  , response : NextResponse){
+  try {
+     const {ProjectId , whiteboard , document} = await request.json();
+    if(!ProjectId){
+        return NextResponse.json(
+        { message: "userId or fileName is missing" },
+        { status: 400 }
+      );
+    }
+
+    const findProject = await File.findById(ProjectId);
+    if(!findProject){
+       return NextResponse.json(
+        { message: "No Project is here with this projectId", success: false },
+        { status: 409 }
+      )
+    }
+    const stringifiedDocument = JSON.stringify(document);
+    const strigifiedWhiteBoard = JSON.stringify(whiteboard);
+    const updatedProject = await File.findByIdAndUpdate(ProjectId , 
+      {document : stringifiedDocument , whiteboard : strigifiedWhiteBoard} , 
+      {new : true} ,
+  
+    )
+
+    return NextResponse.json(
+      {
+        message: "here is Your updatedPrject",
+        success: true,
+        file: updatedProject,
+      },
+      { status: 201 } 
+    );
+
+  } catch(error : any){
+   return NextResponse.json(
+      { message: "Server error", error: error.message },
+      { status: 500 }
+    );
+  }    
 }
