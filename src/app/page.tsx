@@ -6,7 +6,7 @@ import Navbar from "../_components/Navbar";
 import Hero from '../_components/Hero'
 
 
-
+import Pricing from "@/_components/Pricing";
 export default function Home() {
   return (
   <div className="bg-gray-900">
@@ -56,22 +56,22 @@ export default function Home() {
           <h1 className="flex w-full justify-center text-[40px] font-bold">
             Pricing
           </h1>
-          {/* <Pricing /> */}
+          <Pricing />
         </div>
       </div>
       {/* footer */}
       <footer className="bg-white dark:bg-gray-900 flex justify-center py-5">
         <div className="flex justify-between w-[1300px]">
           <p className="mt-8 text-[14px] text-gray-900 dark:text-gray-300 sm:mt-0">
-            &copy; 2022. build from scratch by{" "}
-            <Link className="font-[600]" href={"https://github.com/yadavvshall"}>
-              Vishal
+            &copy; 2025. build from scratch by{" "}
+            <Link className="font-[600]" href={"https://github.com/aryanrule"}>
+              Aryan   
             </Link>
-            .
+            
           </p>
           <div className="flex gap-4">
-            <Link href={'https://x.com/BsB02266322?t=56DmZEf-ILT0VReOtf1t7g&s=09'} target="_blank" ><TwitterLogoIcon className="size-6 "/></Link>
-            <Link href={'https://github.com/bhaskar-005'} target="_blank"><GitHubLogoIcon className="size-6 "/></Link>
+            <Link href={'https://x.com/AryanTheGeek'} target="_blank" ><TwitterLogoIcon className="size-6 "/></Link>
+            <Link href={'https://github.com/aryanrule'} target="_blank"><GitHubLogoIcon className="size-6 "/></Link>
           </div>
         </div>
       </footer>

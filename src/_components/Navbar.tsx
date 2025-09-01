@@ -5,11 +5,11 @@ import { Mail } from "lucide-react";
 import { DashboardIcon } from "@radix-ui/react-icons";
 import { Button } from '@/components/ui/button';
 import { LoginLink, useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
-
+import { ModeToggle } from './ThemeToggle';
 const Navbar = () => {
   const {isAuthenticated,user} = useKindeBrowserClient();
 
-  return (
+  return (  
     <header className="fixed top-0 bg-white dark:bg-gray-900 border-b-[1px] border-b-gray-400 backdrop-blur-md bg-opacity-30 dark:bg-opacity-50 w-full z-10">
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
@@ -20,7 +20,7 @@ const Navbar = () => {
           </div>
 
           <div className=" flex items-center gap-4">
-            {/* <ModeToggle /> */}
+            <ModeToggle />  
 
             {isAuthenticated ? (
               <div className="flex flex-row  gap-4">
@@ -31,7 +31,7 @@ const Navbar = () => {
                 </Link>
                 <Link href={"/dashboard/projects"}>
                   <img
-                    src={user?.picture ? user.picture : 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/1200px-Windows_10_Default_Profile_Picture.svg.png'} 
+                    src={user?.picture ? user.picture : `https://ui-avatars.com/api/?name=${user?.given_name}`}    
                     alt="userimg"
                     className="h-[35px] w-[35px] rounded-full"
                   />

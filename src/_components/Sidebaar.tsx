@@ -15,7 +15,7 @@ import Logout from './Logout';
 import { Progress } from "@/components/ui/progress";
 
 
-const Sidebaar = () => {
+const Sidebaar = () => { 
   
   const userInfo = usePersonalStore((state:any) => state.user);
   const setUserInfo = usePersonalStore((state:any) => state.updateUser);
@@ -156,7 +156,7 @@ const Sidebaar = () => {
             <Progress value={userInfo?.project.length *20} />
             <p className="text-[13.9px] font-[400] mt-3">
               <span className="font-[600]">{userInfo?.project.length}</span> out of{" "}
-              <span className="font-[600]">10</span> files used
+              <span className="font-[600]">5</span> files used
             </p>
             <Link href={"/dashboard/plans"}>
               <p className="text-[13px] font-[400] text-gray-700 dark:text-gray-400 cursor-pointer hover:underline">
@@ -166,7 +166,7 @@ const Sidebaar = () => {
           </div>
         ) : null}
       </div>
-      
+        
           
       </div>
     </>
