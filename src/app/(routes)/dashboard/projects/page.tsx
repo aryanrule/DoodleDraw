@@ -8,18 +8,37 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 import { MoreVertical, Trash } from "lucide-react";
 import SearchInput from "@/_components/SearchInput";
 import CostumAlertDialog from '../../../../_components/AlertDialog';
-
+import { toast } from "sonner";
+import Api_Connector from "@/config/api_connector/api_connectot";
+import { API_ENDPOINTS } from "@/config/api";
 
 const page = () => {
 
   const userinfo = usePersonalStore((state) => state.user);
   const projects = usePersonalStore((state) => state.project);
+  const updateUserInfo = usePersonalStore((state) => state.updateUser);
+  const updateProjectInfo = usePersonalStore((state)=> state.updateProject);
+    
   useEffect(() => {
-    console.log("proejects" , projects);
-  })
-  const deleteProject = (fileId:string) => {
-      
-  }
+    // console.log("proejects" , projects);
+    console.log("userInfo" , userinfo);
+    console.log("projects" , projects);
+  } , [userinfo , projects]);   
+
+  const deleteProject = async (projectId:string , userId : string) => {
+      try{
+          console.log("just htted deletedProject");
+          const Updated_user_deletedProject = await  Api_Connector("DELETE" ,  API_ENDPOINTS.project.deleteProject , {userId : userId , projectId:projectId} , "" , ""); 
+          console.log("updateduser" , Updated_user_deletedProject);
+          toast("Project deleted");
+          updateUserInfo(Updated_user_deletedProject?.data?.userInfo);
+          updateProjectInfo(Updated_user_deletedProject?.data?.userInfo?.project);
+           
+      }catch(error){
+        console.log("error while hitting the delete api" , error);
+        toast("sorry");
+      }
+  } // dubara linkhni pdegi 
   return (
     <div>
       <section className="w-full h-20 flex justify-end  items-center">
@@ -70,21 +89,23 @@ const page = () => {
                 <MoreVertical className="size-5 text-[13.5px]" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
-                <DropdownMenuGroup>
-                  {/* <CostumAlertDialog 
+                {/* <DropdownMenuGroup> */}
+                  <CostumAlertDialog 
                     logout={false}
                     title={"Delete Project"}
                     dialogDescription={"Are you sure you want to delete this project? This action cannot be undone."}
                     buttonText={'Delete'}
-                    buttonOnClick={()=>deleteProject(data.fileId)}
+                    buttonOnClick={()=>deleteProject(data.fileId , userinfo?._id)}
                   >
-                    <DropdownMenuItem className='hover:bg-red-200'>
+                    <DropdownMenuItem
+                     onSelect={(e) => e.preventDefault()}  
+                    className='hover:bg-red-200'>
                       <Trash className="size-4 mr-3" />
                       Delete
                     </DropdownMenuItem>
-                  </CostumAlertDialog> */}
+                  </CostumAlertDialog>  
                     
-                </DropdownMenuGroup>
+                {/* </DropdownMenuGroup> */}   
               </DropdownMenuContent>
             </DropdownMenu>
           </td>
