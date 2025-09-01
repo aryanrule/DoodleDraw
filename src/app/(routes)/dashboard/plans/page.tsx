@@ -1,8 +1,12 @@
+import Pricing from '@/_components/Pricing'
 import React from 'react'
 
 const page = () => {
   return (
-    <div className='bg-red-600 w-[100vw] h-[100vh]'>page</div>
+    <>  
+       <h1 className='text-[19px] font-[600] mt-10'>Pricing </h1>
+       <Pricing/>  
+    </>
   )
 }
 

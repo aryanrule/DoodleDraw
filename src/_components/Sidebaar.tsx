@@ -7,13 +7,15 @@ import { API_ENDPOINTS } from "@/config/api";
 import LoadingBar from 'react-top-loading-bar';
 import {  SidebarClose, SidebarIcon, SidebarOpen } from "lucide-react";
 import { Badge } from '@/components/ui/badge';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import Link from 'next/link';
+import Link from 'next/link';  
 import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs';
 import Logout from './Logout';
+import { Progress } from "@/components/ui/progress";
 
 
-const Sidebaar = () => {
+const Sidebaar = () => { 
   
   const userInfo = usePersonalStore((state:any) => state.user);
   const setUserInfo = usePersonalStore((state:any) => state.updateUser);
@@ -133,8 +135,38 @@ const Sidebaar = () => {
            </li>
         </ul>
       </div>
-
-      
+   <div>
+        <div className=" my-5 flex flex-row gap-3 items-center cursor-pointer ">
+          <div>
+            <Avatar>
+              <AvatarImage src={userInfo?.picture} alt="@shadcn" />
+              <AvatarFallback>{userInfo?.username.slice(0,1)}</AvatarFallback>
+            </Avatar>
+          </div>
+          <div>
+            <h1 className="text-[17px] font-[600]">{userInfo?.username}</h1>
+            <p className="text-[14px] text-gray-600 dark:text-gray-400 hover:underline ">
+              {userInfo?.email}
+            </p>
+          </div>
+        </div>
+        <div className="bg-gray-300 dark:bg-gray-700 h-[0.4px] w-full my-2"></div>
+        {userInfo?.plan == "free" ? (
+          <div className="my-5">
+            <Progress value={userInfo?.project.length *20} />
+            <p className="text-[13.9px] font-[400] mt-3">
+              <span className="font-[600]">{userInfo?.project.length}</span> out of{" "}
+              <span className="font-[600]">5</span> files used
+            </p>
+            <Link href={"/dashboard/plans"}>
+              <p className="text-[13px] font-[400] text-gray-700 dark:text-gray-400 cursor-pointer hover:underline">
+                Upgrade your plan for unlimited access.
+              </p>
+            </Link>
+          </div>
+        ) : null}
+      </div>
+        
           
       </div>
     </>

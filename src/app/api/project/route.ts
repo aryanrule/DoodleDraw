@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
       document: document || "",
       createdBy: checkUserPresent._id,
     });
-
+    console.log("projectCreated" , createProject);   
     // update the user with new project reference
     const updatedUser = await User.findByIdAndUpdate(
       userId,
@@ -86,25 +86,25 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest, response: NextResponse) {
   try {
-      // we can validate the user but i am not validating 
-      const {searchParams} = new URL(request.url);
-      const projectId  = searchParams.get("projectId");
-      if(!projectId){
-        return NextResponse.json(
+    // we can validate the user but i am not validating
+    const { searchParams } = new URL(request.url);
+    const projectId = searchParams.get("projectId");
+    if (!projectId) {
+      return NextResponse.json(
         { message: "ProjectId is missing" },
         { status: 400 }
-        );
-      }
-      await connect_DB();
-      const findProject = await File.findById(projectId);
-      if(!findProject){
-        return NextResponse.json(
+      );
+    }
+    await connect_DB();
+    const findProject = await File.findById(projectId);
+    if (!findProject) {
+      return NextResponse.json(
         { message: "No Project is here with this projectId", success: false },
         { status: 409 }
-      )};
+      );
+    }
 
-
-      return NextResponse.json(
+    return NextResponse.json(
       {
         message: "here is Your Project",
         success: true,
@@ -112,39 +112,39 @@ export async function GET(request: NextRequest, response: NextResponse) {
       },
       { status: 201 }
     );
-  } catch (error : any) {
+  } catch (error: any) {
     return NextResponse.json(
       { message: "Server error", error: error.message },
       { status: 500 }
-    ); 
+    );
   }
-} 
+}
 
 //save project
-export async function PATCH(request : NextRequest  , response : NextResponse){
+export async function PATCH(request: NextRequest, response: NextResponse) {
   try {
-     const {ProjectId , whiteboard , document} = await request.json();
-    if(!ProjectId){
-        return NextResponse.json(
-        { message: "userId or fileName is missing" },
+    const { ProjectId, whiteboard, document } = await request.json();
+    if (!ProjectId) {
+      return NextResponse.json(
+        { message: "ProjectId or fileName is missing" },
         { status: 400 }
       );
     }
-
+    await connect_DB();
     const findProject = await File.findById(ProjectId);
-    if(!findProject){
-       return NextResponse.json(
+    if (!findProject) {
+      return NextResponse.json(
         { message: "No Project is here with this projectId", success: false },
         { status: 409 }
-      )
+      );
     }
     const stringifiedDocument = JSON.stringify(document);
     const strigifiedWhiteBoard = JSON.stringify(whiteboard);
-    const updatedProject = await File.findByIdAndUpdate(ProjectId , 
-      {document : stringifiedDocument , whiteboard : strigifiedWhiteBoard} , 
-      {new : true} ,
-  
-    )
+    const updatedProject = await File.findByIdAndUpdate(
+      ProjectId,
+      { document: stringifiedDocument, whiteboard: strigifiedWhiteBoard },
+      { new: true }
+    );
 
     return NextResponse.json(
       {
@@ -152,13 +152,57 @@ export async function PATCH(request : NextRequest  , response : NextResponse){
         success: true,
         file: updatedProject,
       },
-      { status: 201 } 
+      { status: 201 }
     );
-
-  } catch(error : any){
-   return NextResponse.json(
+  } catch (error: any) {
+    return NextResponse.json(
       { message: "Server error", error: error.message },
       { status: 500 }
     );
-  }    
+  }
+}
+
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const { userId, projectId } = await request.json();
+
+    if (!userId || !projectId) {
+      return NextResponse.json(
+        { message: "ProjectId or userId is missing" },
+        { status: 400 }
+      );
+    }
+
+    await connect_DB();
+
+    const checkUserPresent = await User.findById(userId);
+    if (!checkUserPresent) {
+      return NextResponse.json({ message: "User not found" }, { status: 404 });
+    }
+
+    // First remove the project reference from User
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $pull: { project: { fileId: projectId } } },
+      { new: true }
+    ).populate("project");
+
+    // Then delete the project document
+    await File.findByIdAndDelete(projectId);
+
+    return NextResponse.json(
+      {
+        message: "Project deleted successfully",
+        success: true,
+        userInfo: updatedUser, 
+      },
+      { status: 200 }
+    );
+  } catch (error: any) {
+    return NextResponse.json(
+      { message: "Server error", error: error.message },
+      { status: 500 }
+    );
+  }
 }

@@ -53,7 +53,7 @@ const CostumAlertDialog = ({
                 <LogoutLink> Logout </LogoutLink>
               </AlertDialogAction>
            ) : 
-           (<AlertDialogAction >
+           (<AlertDialogAction onClick={buttonOnClick}>  
                  {buttonText}
            </AlertDialogAction>)
         }
