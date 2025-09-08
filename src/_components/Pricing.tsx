@@ -4,11 +4,16 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Zap } from 'lucide-react';
 import { usePersonalStore } from '@/store/store';
-import { payment } from '@/payment';
 import LoadingBar from 'react-top-loading-bar';
- 
+
+import { ProcessPayment } from '@/payment';
+   
+
+
 const Pricing = () => {
      const [progress , setProgress] = useState(0);
+     const userInfo = usePersonalStore((state) => state.user);
+     const updateUser = usePersonalStore((state) => state.updateUser);
 
      const pricingPlans = [
     {
@@ -99,8 +104,8 @@ const Pricing = () => {
                 ))}
               </ul>
                    {/* //userinfo, updateUserSlice ,setProgress */}
-              {plan.name == 'Pro' ? (
-                <Button className="w-full mt-8" onClick={() => payment()}>
+              {plan.name == 'Pro' ? (   
+                <Button className="w-full mt-8" onClick={() => ProcessPayment(userInfo , updateUser , setProgress)}>
                   <Zap className="size-[18px] mr-2" /> Upgrade
                 </Button>
               ) : (

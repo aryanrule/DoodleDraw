@@ -11,7 +11,7 @@ import CostumAlertDialog from '../../../../_components/AlertDialog';
 import { toast } from "sonner";
 import Api_Connector from "@/config/api_connector/api_connectot";
 import { API_ENDPOINTS } from "@/config/api";
-
+import { ModeToggle } from "@/_components/ThemeToggle";
 const page = () => {
 
   const userinfo = usePersonalStore((state) => state.user);
@@ -38,12 +38,12 @@ const page = () => {
         console.log("error while hitting the delete api" , error);
         toast("sorry");
       }
-  } // dubara linkhni pdegi 
+  } 
   return (
     <div>
       <section className="w-full h-20 flex justify-end  items-center">
         <div className="flex flex-row gap-2 items-center">
-          {/* <ModeToggle /> */}
+          <ModeToggle />
           <div>
             <SearchInput />
           </div>
