@@ -10,6 +10,9 @@ export const API_ENDPOINTS = {
         createProject : `${API_BASE}/api/project` , 
         saveProject : `${API_BASE}/api/project` , 
         getProject :  `${API_BASE}/api/project`  , 
-        deleteProject : `${API_BASE}/api/project` 
+        deleteProject : `${API_BASE}/api/project` ,
+    } , 
+    payments : {
+        createOrder :   `${API_BASE}/api/order`  , 
     }
 }
