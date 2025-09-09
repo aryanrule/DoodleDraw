@@ -14,5 +14,6 @@ export const API_ENDPOINTS = {
     } , 
     payments : {
         createOrder :   `${API_BASE}/api/order`  , 
+        verifyPayment : `${API_BASE}/api/verifypayment`  , 
     }
 }

@@ -2,6 +2,9 @@ import Razorpay from "razorpay";
 import { NextRequest, NextResponse } from "next/server";
 import connect_DB from "@/lib/mongo";
 
+
+
+
 import User from "@/lib/modals/user";
 
 const razorpay = new Razorpay({
@@ -21,14 +24,16 @@ export async function POST(request: NextRequest, response: NextResponse) {
       { status: 500 }
     );    
     } 
+
     var options = {
-      amount: 199 * 100,
+      amount: 1* 100,
       currency: "INR",
       receipt: `${Date.now()}`,
       notes: {
         key1: userId,
-      },
+      }, 
     };
+    // sending the whole order 
     console.log("till here i have reached"); 
     const order = await razorpay.orders.create(options);
     console.log(order);
