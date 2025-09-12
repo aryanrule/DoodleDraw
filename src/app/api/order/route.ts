@@ -1,10 +1,6 @@
 import Razorpay from "razorpay";
 import { NextRequest, NextResponse } from "next/server";
 import connect_DB from "@/lib/mongo";
-
-
-
-
 import User from "@/lib/modals/user";
 
 const razorpay = new Razorpay({
@@ -12,37 +8,41 @@ const razorpay = new Razorpay({
   key_secret: process.env.RAZPAY_KEY_SECRET!,
 });
 
-// first creating an order id through rzpay
-export async function POST(request: NextRequest, response: NextResponse) {
+export async function POST(request: NextRequest) {
   try {
     const { userId } = await request.json();
     await connect_DB();
+
     const findUser = await User.findById(userId);
-    if(!findUser){
+    if (!findUser) {
       return NextResponse.json(
-      { message: "user not found" },
-      { status: 500 }
-    );    
-    } 
+        { message: "User not found" },
+        { status: 404 }
+      );
+    }
 
     const options = {
-      amount: 1* 100,
+      amount: 1 * 100, // 1 INR in paise
       currency: "INR",
       receipt: `${Date.now()}`,
       notes: {
         key1: userId,
-      }, 
+      },
     };
-    // sending the whole order 
-    console.log("till here i have reached"); 
+
+    console.log("Creating Razorpay order...");
     const order = await razorpay.orders.create(options);
-    console.log(order);
-    
-    return NextResponse.json({ order : order , message : "order created SuccessFullyy" , succes : true }, { status: 200 });
-  } catch (error) {
+    console.log("Order created:", order);
+
     return NextResponse.json(
-      { message: "Server error", error: error  } , 
-      { status: 500  } , 
-    );  
+      { order, message: "Order created successfully", success: true },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error creating order:", error);
+    return NextResponse.json(
+      { message: "Server error", error: (error as Error).message },
+      { status: 500 }
+    );
   }
 }
