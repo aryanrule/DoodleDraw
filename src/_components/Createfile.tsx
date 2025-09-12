@@ -1,5 +1,5 @@
 "use client";
-import React  from "react";
+import React, { useEffect } from "react";
 
 import {
   Dialog,
@@ -29,7 +29,10 @@ const Createfile = ({ userinfo }: { userinfo: any }) => {
   const [filename, setfilename] = useState("");
   const router = useRouter();
 
-  
+  useEffect(() => {
+    console.log("userinfo", userinfo);
+  });
+
   const createProject = async () => {
     try {
       //validation
@@ -67,7 +70,7 @@ const Createfile = ({ userinfo }: { userinfo: any }) => {
           <DialogHeader>
             <DialogTitle>Create Project</DialogTitle>
             <DialogDescription>
-              Project details here. Click 'Create' when you're ready to proceed.
+             {" Project details here. Click 'Create' when you're ready to proceed."}
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">

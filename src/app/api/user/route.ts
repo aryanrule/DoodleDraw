@@ -6,7 +6,6 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 import connect_DB from "@/lib/mongo";
-import mongoose from "mongoose";
 import User from "@/lib/modals/user";
 
 //getuserDetails
@@ -86,19 +85,3 @@ export async function POST(request: NextRequest, response: NextResponse) {
   }
 }
 
-
-// //finduser
-// export const findUser = async (KindeId:string)=>{
-//   try {
-//     if (!KindeId){
-//         throw new Error('_id is not provided');
-//         return
-//     }
-//     await connect_DB();
-//     const Getuser = await User.findOne({KindeId: KindeId});
-//     return Getuser
-
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }

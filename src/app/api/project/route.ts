@@ -4,7 +4,6 @@ import connect_DB from "@/lib/mongo";
 import { NextRequest, NextResponse } from "next/server";
 import User from "@/lib/modals/user";
 import File from "@/lib/modals/project";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 // create a project
 export async function POST(request: NextRequest) {

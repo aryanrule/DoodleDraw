@@ -1,7 +1,7 @@
-import { ArrowBigLeft, ArrowDownLeftIcon, LucideArrowUpLeft, LucideArrowUpRight } from 'lucide-react';
+import { LucideArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
-
+import Image from 'next/image';
 const Hero = () => {
   return (
     <div
@@ -11,25 +11,25 @@ const Hero = () => {
           "url('https://assets-global.website-files.com/62d58a323cbc396f06a780aa/653308b56030d3280686f7e9_Noise%20%26%20Texture%20(9)-min-p-800.png')",
       }}
     >
-     <section
+     <section  
   key="1"
   className="bg-white bg-opacity-80 dark:bg-slate-900 dark:bg-opacity-80 md:pt-[150px] pt-24 md:pb-52 pb-20 flex flex-col justify-center items-center space-y-12"
 >
   <div className="container px-7 md:px-12 relative">
    
-    <img
+    <Image
       className="sm:block hidden absolute right-3 bottom-5 w-[80px] opacity-80 invert dark:invert-0"
       src="https://assets-global.website-files.com/62d58a323cbc396f06a780aa/651593780abfac438bc37155_Shapes.svg"
       alt="ai"
     />
-    <img
+    <Image
       className="sm:block hidden absolute w-[120px] opacity-80 invert dark:invert-0"
       src="https://assets-global.website-files.com/62d58a323cbc396f06a780aa/6528593a2397720159ddaeee_Shapes%20(8).svg"
       alt="img"
     />
-    <img
+    <Image
       className="sm:block hidden absolute w-[120px] -bottom-20 left-40 opacity-80 invert dark:invert-0"
-      src='https://assets-global.website-files.com/62d58a323cbc396f06a780aa/651593780abfac438bc371c0_Selected%20Shape.svg'
+      src="https://assets-global.website-files.com/62d58a323cbc396f06a780aa/651593780abfac438bc371c0_Selected%20Shape.svg"
       alt="img"
     />
     
