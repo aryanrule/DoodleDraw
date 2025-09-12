@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React  from "react";
 
 import {
   Dialog,
@@ -29,10 +29,7 @@ const Createfile = ({ userinfo }: { userinfo: any }) => {
   const [filename, setfilename] = useState("");
   const router = useRouter();
 
-  useEffect(() => {
-    console.log("userinfo", userinfo);
-  });
-
+  
   const createProject = async () => {
     try {
       //validation

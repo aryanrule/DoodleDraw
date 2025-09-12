@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React  from "react";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { usePersonalStore } from "@/store/store";
 import Createfile from "@/_components/Createfile";
@@ -22,12 +22,6 @@ const page = () => {
   const updateUserInfo = usePersonalStore((state) => state.updateUser);
   const updateProjectInfo = usePersonalStore((state)=> state.updateProject);
     
-  useEffect(() => {
-    // console.log("proejects" , projects);
-    console.log("userInfo" , userinfo);
-    console.log("projects" , projects);
-  } , [userinfo , projects]);   
-
   const deleteProject = async (projectId:string , userId : string) => {
       try{
           console.log("just htted deletedProject");

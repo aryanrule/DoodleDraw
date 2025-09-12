@@ -20,7 +20,7 @@ const connect_DB =  async () => {
     }
 
     try{  
-        console.log("db url" , db_url);
+        // console.log("db url" , db_url);
         cached.connection = await mongoose.connect(db_url , {bufferCommands: false}) 
     }catch(error){
         console.error('Error connecting to MongoDB:', error);

@@ -2,7 +2,6 @@ import "@blocknote/core/fonts/inter.css";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 import { useCreateBlockNote } from "@blocknote/react";
-import { useEffect } from "react";
 
 export default function BlockNoteEditor({defaultBlock , setDocumentFile} : any) {
 
