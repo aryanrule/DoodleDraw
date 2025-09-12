@@ -16,7 +16,7 @@ export default function Home() {
       <div className="w-full flex justify-center dark:bg-gray-900 bg-gradient-to-b dark:from-gray-900 dark:via-gray-900 from-[#D1D1D1] via-[#D1D1D1] to-white py-4">
         <div className=" w-[1300px] flex sm:flex-row flex-col gap-6">
           <div className="bg-[#171717] sm:w-[70%] w-[100%] flex justify-center items-center rounded-xl border-black border-[1px]">
-            <img
+            <Image
               className="w-[480px]"
               src="https://assets-global.website-files.com/62d58a323cbc396f06a780aa/652724d77e8a69256e0fdaa4_ai%20diagram%202.gif"
               alt="gif"

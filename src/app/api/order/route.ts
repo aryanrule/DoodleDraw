@@ -25,7 +25,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
     );    
     } 
 
-    let options = {
+    const options = {
       amount: 1* 100,
       currency: "INR",
       receipt: `${Date.now()}`,
@@ -34,9 +34,9 @@ export async function POST(request: NextRequest, response: NextResponse) {
       }, 
     };
     // sending the whole order 
-    console.log("till here i have reached"); 
+    
     const order = await razorpay.orders.create(options);
-    console.log(order);
+    // console.log(order);
     
     return NextResponse.json({ order : order , message : "order created SuccessFullyy" , succes : true }, { status: 200 });
   } catch (error) {
