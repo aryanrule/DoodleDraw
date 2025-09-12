@@ -36,17 +36,14 @@ export default function Home() {
         <div className=" w-[1300px] flex sm:flex-row flex-col gap-6 ">
           <div className="sm:w-[40%] w-full  flex flex-col gap-6 ">
             <div className="sm:h-[50%] w-full bg-gray-100 dark:bg-slate-700 rounded-2xl flex items-center sm:p-12 p-10 text-[19px] font-[500] cursor-pointer ">
-              "Perfect your diagrams with precision using our versatile feature,
-              making editing a breeze."
+              {"Perfect your diagrams with precision using our versatile feature making editing a breeze."}
             </div>
             <div className="sm:h-[50%] w-full bg-gray-100 dark:bg-slate-700 rounded-2xl flex items-center sm:p-12 p-10 text-[19px] font-[500] cursor-pointer ">
-              "Craft professional-grade diagrams effortlessly with our intuitive
-              eraser tool"
+            {  "Craft professional-grade diagrams effortlessly with our intuitive eraser tool"}
             </div>
           </div>
           <div className="sm:w-[60%] w-full h-50 bg-gray-100 dark:bg-slate-700 rounded-2xl flex justify-center items-center sm:p-14 p-10 sm:text-[26px] text-[19px]  cursor-pointer font-[500]">
-            "Streamline your diagramming process with our intuitive eraser
-            feature, allowing you to focus on your ideas without worry."
+            {"Streamline your diagramming process with our intuitive eraser feature, allowing you to focus on your ideas without worry."}
           </div>
         </div>
       </div>

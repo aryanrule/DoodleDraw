@@ -2,10 +2,10 @@ import "@blocknote/core/fonts/inter.css";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 import { useCreateBlockNote } from "@blocknote/react";
-import { useEffect } from "react";
 
 export default function BlockNoteEditor({defaultBlock , setDocumentFile} : any) {
-
+  
+     
     const editor = useCreateBlockNote({
     initialContent : defaultBlock ? defaultBlock : [
       {
@@ -13,7 +13,7 @@ export default function BlockNoteEditor({defaultBlock , setDocumentFile} : any) 
         content: "Welcome to Doodle_DRAW !",
       }
     ]
-  });
+  });  
   
   const onChange = () => {
     const document = editor.document;

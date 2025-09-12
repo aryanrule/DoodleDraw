@@ -5,12 +5,11 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { API_ENDPOINTS } from "@/config/api";
 import LoadingBar from 'react-top-loading-bar';
-import {  SidebarClose, SidebarIcon, SidebarOpen } from "lucide-react";
+import {  SidebarClose, SidebarOpen } from "lucide-react";
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import Link from 'next/link';  
-import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs';
 import Logout from './Logout';
 import { Progress } from "@/components/ui/progress";
 

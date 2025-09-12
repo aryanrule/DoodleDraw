@@ -12,7 +12,7 @@ import BlockNoteEditor from '@/_components/BlockNoteView';
 import { toast } from 'sonner';
 import { error } from 'console';
 
-const page = () => {
+const Page = () => {
   
   
   const params : any = useParams();
@@ -53,11 +53,9 @@ const page = () => {
       if(getProjectFile?.data?.file?.document.length == 0 || getProjectFile?.data?.file?.whiteboard.length == 0){
         return ;
       }
-      //maybe a stringify logic is leftover 
-      let document  = JSON.parse(getProjectFile?.data?.file?.document);      
-      let whiteboard = JSON.parse(getProjectFile?.data?.file?.whiteboard);
-      console.log("document" ,  document);  
-      console.log("whiteboard",  whiteboard);   
+
+      const document  = JSON.parse(getProjectFile?.data?.file?.document);      
+      const whiteboard = JSON.parse(getProjectFile?.data?.file?.whiteboard);
       setDbDocumentfile(document);
       setDbWhiteBoardFile(whiteboard);
       setDocumentFile(document);
@@ -72,12 +70,7 @@ const page = () => {
     getFiles(); 
   } , []);
   
-  useEffect(() => {
-    console.log("whiteBoardFile" , whiteBoardFile);
-    console.log("documentfile" , documentFile);
-    console.log("dbdocumentFile" , DBDocumentfile);
-    console.log("dbwhiteboardFile"  , DbWhiteBoardFile);  
-  } , [whiteBoardFile, documentFile , DBDocumentfile , DbWhiteBoardFile]);
+  
   
   if(!DbFiles){
        return (
@@ -121,4 +114,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
