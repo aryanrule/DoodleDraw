@@ -25,7 +25,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
     );    
     } 
 
-    let options = {
+    const options = {
       amount: 1* 100,
       currency: "INR",
       receipt: `${Date.now()}`,
