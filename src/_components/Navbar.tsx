@@ -6,7 +6,7 @@ import { DashboardIcon } from "@radix-ui/react-icons";
 import { Button } from '@/components/ui/button';
 import { LoginLink, useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 import { ModeToggle } from './ThemeToggle';
-import Image from 'next/image';
+
 const Navbar = () => {
   const {isAuthenticated,user} = useKindeBrowserClient();
 
@@ -31,7 +31,7 @@ const Navbar = () => {
                   </Button>
                 </Link>
                 <Link href={"/dashboard/projects"}>
-                  <Image
+                  <img
                     src={user?.picture ? user.picture : `https://ui-avatars.com/api/?name=${user?.given_name}`}    
                     alt="userimg"
                     className="h-[35px] w-[35px] rounded-full"
