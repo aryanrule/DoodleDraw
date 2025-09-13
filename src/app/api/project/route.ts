@@ -83,7 +83,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET(request: NextRequest, response: NextResponse) {
+export async function GET(request: NextRequest) {
   try {
     // we can validate the user but i am not validating
     const { searchParams } = new URL(request.url);
@@ -120,7 +120,7 @@ export async function GET(request: NextRequest, response: NextResponse) {
 }
 
 //save project
-export async function PATCH(request: NextRequest, response: NextResponse) {
+export async function PATCH(request: NextRequest) {
   try {
     const { ProjectId, whiteboard, document } = await request.json();
     if (!ProjectId) {

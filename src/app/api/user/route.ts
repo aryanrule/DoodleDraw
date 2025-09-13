@@ -9,7 +9,7 @@ import connect_DB from "@/lib/mongo";
 import User from "@/lib/modals/user";
 
 //getuserDetails
-export async function GET(request: NextRequest, response: NextResponse) {
+export async function GET(request: NextRequest ) {
   try {
     const { getUser } = getKindeServerSession();
     const kindUser = await getUser();
@@ -54,7 +54,7 @@ export async function GET(request: NextRequest, response: NextResponse) {
   }
 }
 //createUser
-export async function POST(request: NextRequest, response: NextResponse) {
+export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { username, email, kindeId, picture } = body;
